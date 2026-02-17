@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Flour Power Academy | Student Portal&lt;/title&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.sidebar-item:hover { background-color: #fef2f2; border-left: 4px solid #ef4444; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.course-card:hover { transform: translateY(-5px); transition: all 0.3s ease; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-stone-50 text-stone-800 font-sans"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;nav class="bg-white border-b border-stone-200 px-6 py-3 flex justify-between items-center sticky top-0 z-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-2xl"&gt;🥖&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="font-bold text-xl tracking-tight text-orange-900"&gt;Flour Power &lt;span class="text-orange-600"&gt;Academy&lt;/span&gt;&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="text-stone-500 hover:text-orange-600"&gt;My Recipes&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="relative group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button id="profileDropdown" class="flex items-center gap-2 bg-stone-100 px-3 py-1 rounded-full border border-stone-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="w-7 h-7 bg-orange-400 rounded-full flex items-center justify-center text-white text-xs"&gt;JD&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm font-medium"&gt;Jane Dough&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="absolute right-0 mt-2 w-48 bg-white border border-stone-200 shadow-xl rounded-lg hidden group-hover:block"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="block px-4 py-2 hover:bg-orange-50"&gt;Account Settings&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="block px-4 py-2 hover:bg-orange-50"&gt;Certification Status&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;hr&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="#" class="block px-4 py-2 text-red-600 hover:bg-red-50"&gt;Logout&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/nav&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flex"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;aside class="w-64 h-screen bg-white border-r border-stone-200 p-4 sticky top-16"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;nav class="space-y-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-stone-600"&gt;&lt;span&gt;🏠&lt;/span&gt; Dashboard&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" id="course-lib-link" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-stone-600"&gt;&lt;span&gt;📚&lt;/span&gt; Course Library&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-stone-600"&gt;&lt;span&gt;🗓️&lt;/span&gt; Live Workshops&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;a href="#" class="sidebar-item flex items-center gap-3 p-3 rounded-lg text-stone-600"&gt;&lt;span&gt;🏆&lt;/span&gt; Achievements&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/nav&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/aside&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;main class="flex-1 p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;header class="mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-3xl font-bold text-stone-900"&gt;Welcome back, Chef Jane!&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-stone-500"&gt;You’re 3 lessons away from your Sourdough Certification.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="bg-orange-600 rounded-2xl p-6 text-white mb-10 flex justify-between items-center shadow-lg shadow-orange-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-xl font-semibold mb-2"&gt;Continue: Hydration Masterclass&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="opacity-90 mb-4"&gt;Lesson 4 of 12: Understanding Baker's Percentages&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="document.getElementById('demoModal').classList.toggle('hidden')" class="bg-white text-orange-600 px-6 py-2 rounded-lg font-bold hover:bg-orange-50 transition shadow-md"&gt;Resume Lesson&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-64px opacity-20 text-8xl font-black"&gt;75%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-xl font-bold mb-6"&gt;Your Enrolled Courses&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="course-card bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="h-32 bg-stone-200 flex items-center justify-center text-4xl"&gt;🥐&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-xs font-bold text-orange-600 uppercase"&gt;Advanced&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-lg"&gt;Croissant Lamination&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-4 h-2 bg-stone-100 rounded-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-1/3 h-full bg-orange-500 rounded-full"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="course-card bg-white border border-stone-200 rounded-xl overflow-hidden shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="h-32 bg-stone-200 flex items-center justify-center text-4xl"&gt;🍕&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="p-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-xs font-bold text-green-600 uppercase"&gt;Beginner&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-lg"&gt;Neapolitan Pizza Dough&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-4 h-2 bg-stone-100 rounded-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="w-full h-full bg-green-500 rounded-full"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/main&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="demoModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-[100]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white p-8 rounded-2xl max-w-md w-full relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="document.getElementById('demoModal').classList.add('hidden')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-800"&gt;✕&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h3 class="text-2xl font-bold mb-4"&gt;Lesson 4: Baker's Percentages&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-stone-600 mb-6"&gt;Before we start, do you have your digital scale ready? This lesson requires precision measurements.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="flex-1 bg-stone-100 py-3 rounded-xl font-bold"&gt;No, wait&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="flex-1 bg-orange-600 text-white py-3 rounded-xl font-bold"&gt;Ready!&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
