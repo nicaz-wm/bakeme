@@ -3,74 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Butter Masterclass | Training Lab</title>
+    <title>The Butter Masterclass | Advanced Lab</title>
     <style>
         :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: auto; position: relative; }
-        header { text-align: center; padding: 30px; background: var(--churn-gold); border-radius: 8px; }
-
-        /* ISSUE 1: THE GHOST OVERLAY (Visible but unclickable) */
-        /* This sits over the main action area. WalkMe will "see" the button, 
-           but the click won't penetrate this transparent div. */
-        #ui-layer-mask {
-            position: absolute;
-            top: 200px; left: 0; width: 100%; height: 150px;
-            z-index: 9999;
-            background: rgba(255, 255, 255, 0); /* Invisible but present */
-            pointer-events: all; 
-        }
-
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 20px 0; }
+        .container { max-width: 900px; margin: auto; position: relative; }
+        header { text-align: center; padding: 20px; background: var(--churn-gold); border-radius: 8px; }
         
-        /* ISSUE 2: STYLING CONFLICT (Plugin Simulation) */
-        /* This mimics a "broken" CSS plugin that hides specific WalkMe classes */
-        .wm-main-container, .walkme-action-destroy { 
-            opacity: 0.99 !important; 
-            border: 1px solid transparent; 
+        .main-layout { display: flex; gap: 20px; margin-top: 20px; }
+        .sidebar { flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        
+        /* THE IFRAME TRAP */
+        .iframe-container { 
+            flex: 2; 
+            border: 3px dashed #d4ac0d; 
+            border-radius: 8px; 
+            background: #fff;
+            overflow: hidden;
+        }
+        iframe { width: 100%; height: 500px; border: none; }
+
+        /* THE INVISIBLE WALL (Issue from previous step) */
+        #ui-layer-mask {
+            position: absolute; top: 150px; left: 0; width: 100%; height: 100px;
+            z-index: 9999; background: rgba(255, 0, 0, 0); pointer-events: all; 
         }
 
-        .btn-gold { background: #d4ac0d; color: white; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; }
+        .status-bar { font-size: 11px; color: #888; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
 
-<div id="ui-layer-mask"></div> <div class="container">
+<div id="ui-layer-mask"></div>
+
+<div class="container">
     <header>
         <h1>🧈 The Butter Masterclass</h1>
-        <p>Logged in as: <strong>Margie Rin</strong></p>
+        <p>Student Profile: <strong>Margie Rin</strong></p>
     </header>
 
-    <section class="card">
-        <h2>Module 1: High-Fat Fundamentals</h2>
-        <p>To begin your journey into clarified greatness, click the button below.</p>
-        
-        <button id="temp-id-placeholder" class="btn-gold">Start Churning</button>
-    </section>
+    <div class="main-layout">
+        <aside class="sidebar">
+            <h3>Ingredients List</h3>
+            <ul>
+                <li>Heavy Cream (Cold)</li>
+                <li>Sea Salt Crystals</li>
+                <li>Patience</li>
+            </ul>
+            <button id="verify-btn" class="btn-gold" style="width:100%; padding: 10px; cursor:pointer;">Verify Stock</button>
+        </aside>
 
-    <section class="card">
-        <h2>Instructor Spotlight: Butter Pitt</h2>
-        <p>"The secret to great butter is 50% cream, 50% patience, and 0% margarine."</p>
-    </section>
+        <section class="iframe-container">
+            <iframe id="butter-churn-frame" srcdoc="
+                <html>
+                <head>
+                    <style>
+                        body { font-family: sans-serif; padding: 20px; background: #fff; text-align: center; }
+                        .churn-box { border: 2px solid #f4d03f; padding: 40px; border-radius: 10px; }
+                        button { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 18px; }
+                    </style>
+                </head>
+                <body>
+                    <div class='churn-box'>
+                        <h2>The Churning Chamber</h2>
+                        <p>This is inside a same-domain iframe.</p>
+                        <button id='start-churn-btn'>Start the Churn</button>
+                    </div>
+                </body>
+                </html>
+            "></iframe>
+        </section>
+    </div>
 
-    <div style="font-size: 10px; color: #ccc; margin-top: 50px;">
-        System Status: v2.4.1-regressed | Environment: Production-Hybrid
+    <div class="status-bar">
+        System: 2.4.1-churn | UserID: Margie_Rin_99 | <span id="id-log"></span>
     </div>
 </div>
 
 <script>
-    // AUTOMATED ISSUE 1: Randomize ID on Page Load
-    // This forces agents to use "Text" or "Class" selectors instead of ID.
     window.onload = function() {
-        const churnBtn = document.getElementById('temp-id-placeholder');
-        const randomID = "btn_" + Math.floor(Math.random() * 10000);
-        churnBtn.id = randomID;
-        console.log("WalkMe Debug: Element ID set to " + randomID);
+        // ISSUE: Randomize the Sidebar button ID to break simple selectors
+        const vBtn = document.getElementById('verify-btn');
+        vBtn.id = "v-btn-" + Math.floor(Math.random() * 999);
+        document.getElementById('id-log').innerText = "Active ID: " + vBtn.id;
 
-        // AUTOMATED ISSUE 2: Simulate a "Library Regression"
-        // We push a fake version to the window object to confuse the Flow Tracker
-        window.walkme_version = "2022.1.0"; 
-        
-        // AUTOMATED ISSUE 3: Plugin Logic Conflict
-        // Throws a non-breaking error that shows up in the console
-        console.
+        // Visual cue for the trainer
+        console.warn('Troubleshooting Alert: Iframe loaded without WalkMe Snippet. Cross-domain communication is NOT active.');
+    };
+</script>
+
+</body>
+</html>
