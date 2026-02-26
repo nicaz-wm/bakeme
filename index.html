@@ -14,7 +14,7 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Butter Masterclass</title>
+    <title>The Butter Masterclass | Hard Mode</title>
     <style>
         :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; --butter-dark: #b8950d; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; }
@@ -25,36 +25,35 @@
         
         /* SIDEBAR TABS */
         .sidebar { flex: 1; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
-        .tab-menu { display: flex; flex-direction: column; background: #eee; }
-        .tab-link { padding: 15px; border: none; background: none; text-align: left; cursor: pointer; border-bottom: 1px solid #ddd; font-weight: bold; height: 50px; box-sizing: border-box; }
+        .tab-menu { display: flex; flex-direction: column; background: #eee; position: relative; }
+        .tab-link { padding: 15px; border: none; background: none; text-align: left; cursor: pointer; border-bottom: 1px solid #ddd; font-weight: bold; height: 50px; width: 100%; box-sizing: border-box; }
         .tab-link.active { background: white; color: var(--butter-dark); border-left: 4px solid var(--churn-gold); }
         .tab-content { padding: 20px; display: none; }
         .tab-content.active { display: block; }
 
-        /* THE IFRAME TRAP */
+        /* THE TRAP: Absolute positioned over Lesson 3 */
+        #ui-layer-mask {
+            position: absolute; 
+            top: 100px; /* Aligned over Lesson 3 (50px + 50px) */
+            left: 0; 
+            width: 100%; 
+            height: 50px; 
+            z-index: 99999; /* Higher than anything else */
+            background: rgba(255, 0, 0, 0.4); /* RED SO YOU CAN SEE IT FOR NOW */
+            pointer-events: all; /* Captures all mouse clicks */
+            cursor: not-allowed;
+            display: block;
+        }
+
         .iframe-container { flex: 2; border: 3px dashed #d4ac0d; border-radius: 8px; background: #fff; }
         iframe { width: 100%; height: 500px; border: none; }
 
-        /* THE INVISIBLE WALL - Repositioned to Lesson 3 Tab */
-        #ui-layer-mask {
-            position: absolute; 
-            top: 222px; /* Positioned precisely over the Lesson 3 tab link */
-            left: 20px; 
-            width: 320px; /* Width of the sidebar roughly */
-            height: 50px; /* Height of the Lesson 3 button */
-            z-index: 9999; 
-            background: rgba(255, 0, 0, 0); /* Invisible */
-            pointer-events: all; 
-            cursor: default;
-        }
-
-        .btn-gold { background: var(--churn-gold); color: #333; border: 1px solid var(--butter-dark); padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
-        .status-bar { font-size: 11px; color: #888; margin-top: 20px; text-align: center; }
+        /* TRAINER CONTROLS */
+        .trainer-console { margin-top: 30px; padding: 15px; background: #333; color: #fff; border-radius: 5px; font-size: 13px; }
+        .btn-gold { background: var(--churn-gold); color: #333; border: 1px solid var(--butter-dark); padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
-
-<div id="ui-layer-mask"></div>
 
 <div class="container">
     <header>
@@ -64,80 +63,72 @@
 
     <div class="main-layout">
         <aside class="sidebar">
-            <div class="tab-menu">
+            <div class="tab-menu" id="menu-container">
+                <div id="ui-layer-mask" onclick="alert('The Invisible Wall caught your click! Check the Z-index.')"></div>
+                
                 <button class="tab-link active" onclick="openTab(event, 'Lesson1')">Lesson 1: Basics</button>
                 <button class="tab-link" onclick="openTab(event, 'Lesson2')">Lesson 2: Salt Flow</button>
-                <button class="tab-link" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
+                <button class="tab-link" id="lesson-3-btn" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
             </div>
 
             <div id="Lesson1" class="tab-content active">
                 <h3>Heavy Cream 101</h3>
-                <p>Learn why fat content matters more than your social standing.</p>
+                <p>Fat content is key.</p>
                 <button id="verify-btn" class="btn-gold">Check Fat %</button>
             </div>
-
-            <div id="Lesson2" class="tab-content">
-                <h3>The Salt Ratio</h3>
-                <p>Too much salt is a crime. Too little is a tragedy.</p>
-                <button class="btn-gold">Apply Brine</button>
-            </div>
-
-            <div id="Lesson3" class="tab-content">
-                <h3>Clarification</h3>
-                <p>Removing the impurities of life (and milk solids).</p>
-            </div>
+            <div id="Lesson2" class="tab-content"><h3>The Salt Ratio</h3><button class="btn-gold">Apply Brine</button></div>
+            <div id="Lesson3" class="tab-content"><h3>Clarification</h3><p>Removing impurities.</p></div>
         </aside>
 
         <section class="iframe-container">
-            <iframe id="butter-churn-frame" srcdoc="
-                <html>
-                <body style='font-family:sans-serif; text-align:center; padding:50px;'>
-                    <div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'>
-                        <h2>Churning Chamber</h2>
-                        <p>The central heart of the churn. Aggitation is key.</p>
-                        <button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button>
-                    </div>
-                </body>
-                </html>
-            "></iframe>
+            <iframe id="butter-churn-frame" srcdoc="<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><p>Agitation is key.</p><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button></div></body></html>"></iframe>
         </section>
     </div>
-    <div class="status-bar" id="id-log">Status: Initializing...</div>
+
+    <div class="trainer-console">
+        <strong>🛠 Trainer Controls:</strong>
+        <button onclick="toggleMaskVisibility()">Toggle Mask Color (Show/Hide Red)</button>
+        <button onclick="removeMask()">Disable Mask (Solve Issue)</button>
+        <div id="id-log" style="margin-top:10px; color: #f4d03f;">Session: Initializing...</div>
+    </div>
 </div>
 
 <script>
     const frameContent = {
-        'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><p>The central heart of the churn. Aggitation is key.</p><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button></div></body></html>`,
-        'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>The Salting Station</h2><p>Welcome to Lesson 2. Here we precisely measure sodium levels.</p><button id='salt-btn' style='background:#e67e22; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Distribute Salt</button></div></body></html>`,
-        'Lesson3': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #9b59b6; padding:20px; border-radius:10px;'><h2>Clarification Lab</h2><p>Lesson 3: The final stage. High heat, low moisture.</p><button id='clarify-btn' style='background:#8e44ad; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Purify Butter</button></div></body></html>`
+        'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; cursor:pointer;'>Finish Lesson</button></div></body></html>`,
+        'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>The Salting Station</h2><button id='salt-btn' style='background:#e67e22; color:white; padding:15px; cursor:pointer;'>Distribute Salt</button></div></body></html>`,
+        'Lesson3': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #9b59b6; padding:20px; border-radius:10px;'><h2>Clarification Lab</h2><button id='clarify-btn' style='background:#8e44ad; color:white; padding:15px; cursor:pointer;'>Purify Butter</button></div></body></html>`
     };
 
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName('tab-content');
-        for (i = 0; i < tabcontent.length; i++) { 
-            tabcontent[i].style.display = 'none'; 
-            tabcontent[i].classList.remove('active'); 
-        }
+        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = 'none'; tabcontent[i].classList.remove('active'); }
         tablinks = document.getElementsByClassName('tab-link');
-        for (i = 0; i < tablinks.length; i++) { 
-            tablinks[i].className = tablinks[i].className.replace(' active', ''); 
-        }
+        for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
         document.getElementById(tabName).style.display = 'block';
         document.getElementById(tabName).classList.add('active');
         evt.currentTarget.className += ' active';
-
         document.getElementById('butter-churn-frame').srcdoc = frameContent[tabName];
+    }
+
+    // TRAINER FUNCTIONS
+    function toggleMaskVisibility() {
+        const mask = document.getElementById('ui-layer-mask');
+        const isVisible = mask.style.backgroundColor !== 'rgba(255, 0, 0, 0)';
+        mask.style.backgroundColor = isVisible ? 'rgba(255, 0, 0, 0)' : 'rgba(255, 0, 0, 0.4)';
+    }
+
+    function removeMask() {
+        document.getElementById('ui-layer-mask').style.display = 'none';
+        alert('Mask removed! Lesson 3 is now clickable.');
     }
 
     window.onload = function() {
         const vBtn = document.getElementById('verify-btn');
-        const randomID = "check-id-" + Math.floor(Math.random() * 999);
-        vBtn.id = randomID;
-        document.getElementById('id-log').innerText = "Session ID: " + randomID;
-
+        vBtn.id = "check-id-" + Math.floor(Math.random() * 999);
+        document.getElementById('id-log').innerText = "Dynamic ID Generated: " + vBtn.id;
         window.walkme_version = "2021.04.12";
-        console.warn('TRAINER ALERT: Invisible Wall moved to Lesson 3 Tab. ID Churn active on Lesson 1.');
     };
 </script>
 
