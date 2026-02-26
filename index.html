@@ -23,34 +23,28 @@
         
         .main-layout { display: flex; gap: 20px; }
         
-        /* SIDEBAR TABS */
+        /* SIDEBAR TABS - These are in the MAIN WINDOW */
         .sidebar { flex: 1; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
         .tab-menu { display: flex; flex-direction: column; background: #eee; position: relative; }
         .tab-link { padding: 15px; border: none; background: none; text-align: left; cursor: pointer; border-bottom: 1px solid #ddd; font-weight: bold; height: 50px; width: 100%; box-sizing: border-box; }
         .tab-link.active { background: white; color: var(--butter-dark); border-left: 4px solid var(--churn-gold); }
-        .tab-content { padding: 20px; display: none; }
-        .tab-content.active { display: block; }
 
-        /* THE TRAP: Absolute positioned over Lesson 3 */
+        /* THE INVISIBLE WALL - Over Lesson 3 Tab */
         #ui-layer-mask {
             position: absolute; 
-            top: 100px; /* Aligned over Lesson 3 (50px + 50px) */
-            left: 0; 
-            width: 100%; 
-            height: 50px; 
-            z-index: 99999; /* Higher than anything else */
-            background: rgba(255, 0, 0, 0); 
-            pointer-events: all; /* Captures all mouse clicks */
-            cursor: not-allowed;
-            display: block;
+            top: 100px; /* Blocks the 3rd tab */
+            left: 0; width: 100%; height: 500px; /* High enough to block clicks */
+            z-index: 99999; 
+            background: rgba(255, 0, 0, 0); /* Set to 0.4 to see it */
+            pointer-events: all; 
         }
 
-        .iframe-container { flex: 2; border: 3px dashed #d4ac0d; border-radius: 8px; background: #fff; }
-        iframe { width: 100%; height: 500px; border: none; }
+        /* THE IFRAME CONTAINER - This holds the Lesson Content */
+        .iframe-container { flex: 2; border: 3px dashed #d4ac0d; border-radius: 8px; background: #fff; height: 500px; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        /* TRAINER CONTROLS */
         .trainer-console { margin-top: 30px; padding: 15px; background: #333; color: #fff; border-radius: 5px; font-size: 13px; }
-        .btn-gold { background: var(--churn-gold); color: #333; border: 1px solid var(--butter-dark); padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
+        .status-bar { font-size: 11px; color: #888; margin-top: 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -58,69 +52,67 @@
 <div class="container">
     <header>
         <h1>🧈 The Butter Masterclass</h1>
-        <p>Current Churner: <strong>Margie Rin</strong></p>
+        <p>Expert Instructor: <strong>Margie Rin</strong></p>
     </header>
 
     <div class="main-layout">
         <aside class="sidebar">
             <div class="tab-menu" id="menu-container">
-                <div id="ui-layer-mask""></div>
+                <div id="ui-layer-mask" onclick="alert('Invisible Wall! Use DevTools to find me.')"></div>
                 
                 <button class="tab-link active" onclick="openTab(event, 'Lesson1')">Lesson 1: Basics</button>
                 <button class="tab-link" onclick="openTab(event, 'Lesson2')">Lesson 2: Salt Flow</button>
-                <button class="tab-link" id="lesson-3-btn" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
+                <button class="tab-link" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
             </div>
-
-            <div id="Lesson1" class="tab-content active">
-                <h3>Heavy Cream 101</h3>
-                <p>Fat content is key.</p>
-                <button id="verify-btn" class="btn-gold">Check Fat %</button>
+            <div style="padding: 10px; font-size: 12px; color: #666;">
+                Click a tab to load the lesson into the Churning Chamber.
             </div>
-            <div id="Lesson2" class="tab-content"><h3>The Salt Ratio</h3><button class="btn-gold">Apply Brine</button></div>
-            <div id="Lesson3" class="tab-content"><h3>Clarification</h3><p>Removing impurities.</p></div>
         </aside>
 
         <section class="iframe-container">
-            <iframe id="butter-churn-frame" srcdoc="<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><p>Agitation is key.</p><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button></div></body></html>"></iframe>
+            <iframe id="lesson-frame" name="lesson-frame" srcdoc="
+                <html>
+                <body style='font-family:sans-serif; text-align:center; padding:40px;'>
+                    <div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'>
+                        <h2>Lesson 1: Churning Butter</h2>
+                        <p>Agitate the heavy cream until the fat solids separate from the buttermilk.</p>
+                        <button id='verify-btn' style='background:#27ae60; color:white; padding:12px; border:none; cursor:pointer;'>Check Fat %</button>
+                    </div>
+                </body>
+                </html>
+            "></iframe>
         </section>
+    </div>
+
+    <div class="trainer-console">
+        <strong>🛠 Trainer Controls:</strong>
+        <button onclick="document.getElementById('ui-layer-mask').style.backgroundColor = 'rgba(255,0,0,0.4)'">Show Mask</button>
+        <button onclick="document.getElementById('ui-layer-mask').style.display = 'none'">Remove Mask</button>
+        <div id="id-log" style="margin-top:10px; color: #f4d03f;">Session Status: Active</div>
     </div>
 </div>
 
 <script>
-    const frameContent = {
-        'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; cursor:pointer;'>Finish Lesson</button></div></body></html>`,
-        'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>The Salting Station</h2><button id='salt-btn' style='background:#e67e22; color:white; padding:15px; cursor:pointer;'>Distribute Salt</button></div></body></html>`,
-        'Lesson3': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #9b59b6; padding:20px; border-radius:10px;'><h2>Clarification Lab</h2><button id='clarify-btn' style='background:#8e44ad; color:white; padding:15px; cursor:pointer;'>Purify Butter</button></div></body></html>`
+    // These contents are loaded into the iframe. 
+    // NOTICE: No WalkMe snippet is present in these strings.
+    const lessonContent = {
+        'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Lesson 1: Churning Butter</h2><p>Agitate the cream.</p><button id='verify-btn' style='background:#27ae60; color:white; padding:12px; cursor:pointer;'>Check Fat %</button></div></body></html>`,
+        'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>Lesson 2: Salt Flow</h2><p>Measure the sodium carefully.</p><button id='salt-btn' style='background:#e67e22; color:white; padding:12px; cursor:pointer;'>Apply Brine</button></div></body></html>`,
+        'Lesson3': `<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #9b59b6; padding:20px; border-radius:10px;'><h2>Lesson 3: Clarification</h2><p>Purification stage.</p><button id='clarify-btn' style='background:#8e44ad; color:white; padding:12px; cursor:pointer;'>Clarify Solids</button></div></body></html>`
     };
 
     function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName('tab-content');
-        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = 'none'; tabcontent[i].classList.remove('active'); }
-        tablinks = document.getElementsByClassName('tab-link');
-        for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
-        document.getElementById(tabName).style.display = 'block';
-        document.getElementById(tabName).classList.add('active');
+        // Handle Sidebar Tab UI
+        var tablinks = document.getElementsByClassName('tab-link');
+        for (var i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
         evt.currentTarget.className += ' active';
-        document.getElementById('butter-churn-frame').srcdoc = frameContent[tabName];
-    }
 
-    // TRAINER FUNCTIONS
-    function toggleMaskVisibility() {
-        const mask = document.getElementById('ui-layer-mask');
-        const isVisible = mask.style.backgroundColor !== 'rgba(255, 0, 0, 0)';
-        mask.style.backgroundColor = isVisible ? 'rgba(255, 0, 0, 0)' : 'rgba(255, 0, 0, 0.4)';
-    }
-
-    function removeMask() {
-        document.getElementById('ui-layer-mask').style.display = 'none';
-        alert('Mask removed! Lesson 3 is now clickable.');
+        // Update the Iframe Content (The Black Hole)
+        document.getElementById('lesson-frame').srcdoc = lessonContent[tabName];
     }
 
     window.onload = function() {
-        const vBtn = document.getElementById('verify-btn');
-        vBtn.id = "check-id-" + Math.floor(Math.random() * 999);
-        document.getElementById('id-log').innerText = "Dynamic ID Generated: " + vBtn.id;
+        // Library Regression Spoof
         window.walkme_version = "2021.04.12";
     };
 </script>
