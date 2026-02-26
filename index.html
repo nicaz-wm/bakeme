@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Butter Masterclass | Advanced Lab</title>
+    <title>The Butter Masterclass | Tabbed Training Lab</title>
     <style>
-        :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; }
+        :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; --butter-dark: #b8950d; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: auto; position: relative; }
-        header { text-align: center; padding: 20px; background: var(--churn-gold); border-radius: 8px; }
+        .container { max-width: 1000px; margin: auto; position: relative; }
+        header { text-align: center; padding: 20px; background: var(--churn-gold); border-radius: 8px; margin-bottom: 20px; }
         
-        .main-layout { display: flex; gap: 20px; margin-top: 20px; }
-        .sidebar { flex: 1; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .main-layout { display: flex; gap: 20px; }
         
+        /* SIDEBAR TABS */
+        .sidebar { flex: 1; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; }
+        .tab-menu { display: flex; flex-direction: column; background: #eee; }
+        .tab-link { padding: 15px; border: none; background: none; text-align: left; cursor: pointer; border-bottom: 1px solid #ddd; font-weight: bold; }
+        .tab-link.active { background: white; color: var(--butter-dark); border-left: 4px solid var(--churn-gold); }
+        .tab-content { padding: 20px; display: none; }
+        .tab-content.active { display: block; }
+
         /* THE IFRAME TRAP */
-        .iframe-container { 
-            flex: 2; 
-            border: 3px dashed #d4ac0d; 
-            border-radius: 8px; 
-            background: #fff;
-            overflow: hidden;
-        }
+        .iframe-container { flex: 2; border: 3px dashed #d4ac0d; border-radius: 8px; background: #fff; }
         iframe { width: 100%; height: 500px; border: none; }
 
-        /* THE INVISIBLE WALL (Issue from previous step) */
+        /* THE INVISIBLE WALL */
         #ui-layer-mask {
             position: absolute; top: 150px; left: 0; width: 100%; height: 100px;
-            z-index: 9999; background: rgba(255, 0, 0, 0); pointer-events: all; 
+            z-index: 9999; background: rgba(0,0,0,0); pointer-events: all; 
         }
 
+        .btn-gold { background: var(--churn-gold); color: #333; border: 1px solid var(--butter-dark); padding: 10px; border-radius: 4px; cursor: pointer; width: 100%; font-weight: bold; }
         .status-bar { font-size: 11px; color: #888; margin-top: 20px; text-align: center; }
     </style>
 </head>
@@ -39,35 +41,43 @@
 <div class="container">
     <header>
         <h1>🧈 The Butter Masterclass</h1>
-        <p>Student Profile: <strong>Margie Rin</strong></p>
+        <p>Current Churner: <strong>Margie Rin</strong></p>
     </header>
 
     <div class="main-layout">
         <aside class="sidebar">
-            <h3>Ingredients List</h3>
-            <ul>
-                <li>Heavy Cream (Cold)</li>
-                <li>Sea Salt Crystals</li>
-                <li>Patience</li>
-            </ul>
-            <button id="verify-btn" class="btn-gold" style="width:100%; padding: 10px; cursor:pointer;">Verify Stock</button>
+            <div class="tab-menu">
+                <button class="tab-link active" onclick="openTab(event, 'Lesson1')">Lesson 1: Basics</button>
+                <button class="tab-link" onclick="openTab(event, 'Lesson2')">Lesson 2: Salt Flow</button>
+                <button class="tab-link" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
+            </div>
+
+            <div id="Lesson1" class="tab-content active">
+                <h3>Heavy Cream 101</h3>
+                <p>Learn why fat content matters more than your social standing.</p>
+                <button id="verify-btn" class="btn-gold">Check Fat %</button>
+            </div>
+
+            <div id="Lesson2" class="tab-content">
+                <h3>The Salt Ratio</h3>
+                <p>Too much salt is a crime. Too little is a tragedy.</p>
+                <button class="btn-gold">Apply Brine</button>
+            </div>
+
+            <div id="Lesson3" class="tab-content">
+                <h3>Clarification</h3>
+                <p>Removing the impurities of life (and milk solids).</p>
+            </div>
         </aside>
 
         <section class="iframe-container">
             <iframe id="butter-churn-frame" srcdoc="
                 <html>
-                <head>
-                    <style>
-                        body { font-family: sans-serif; padding: 20px; background: #fff; text-align: center; }
-                        .churn-box { border: 2px solid #f4d03f; padding: 40px; border-radius: 10px; }
-                        button { background: #27ae60; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 18px; }
-                    </style>
-                </head>
-                <body>
-                    <div class='churn-box'>
-                        <h2>The Churning Chamber</h2>
-                        <p>This is inside a same-domain iframe.</p>
-                        <button id='start-churn-btn'>Start the Churn</button>
+                <body style='font-family:sans-serif; text-align:center; padding:50px;'>
+                    <div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'>
+                        <h2>Churning Chamber</h2>
+                        <p>Snippet status: 404 Not Found</p>
+                        <button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button>
                     </div>
                 </body>
                 </html>
@@ -76,19 +86,35 @@
     </div>
 
     <div class="status-bar">
-        System: 2.4.1-churn | UserID: Margie_Rin_99 | <span id="id-log"></span>
+        System: v2.4.1-regressed | Session: <span id="id-log"></span>
     </div>
 </div>
 
 <script>
-    window.onload = function() {
-        // ISSUE: Randomize the Sidebar button ID to break simple selectors
-        const vBtn = document.getElementById('verify-btn');
-        vBtn.id = "v-btn-" + Math.floor(Math.random() * 999);
-        document.getElementById('id-log').innerText = "Active ID: " + vBtn.id;
+    // TAB LOGIC
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName('tab-content');
+        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = 'none'; tabcontent[i].classList.remove('active'); }
+        tablinks = document.getElementsByClassName('tab-link');
+        for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
+        document.getElementById(tabName).style.display = 'block';
+        document.getElementById(tabName).classList.add('active');
+        evt.currentTarget.className += ' active';
+    }
 
-        // Visual cue for the trainer
-        console.warn('Troubleshooting Alert: Iframe loaded without WalkMe Snippet. Cross-domain communication is NOT active.');
+    // AUTOMATED ISSUES ON LOAD
+    window.onload = function() {
+        // ISSUE: Shifting ID
+        const vBtn = document.getElementById('verify-btn');
+        const randomID = "check-id-" + Math.floor(Math.random() * 999);
+        vBtn.id = randomID;
+        document.getElementById('id-log').innerText = randomID;
+
+        // ISSUE: Library Version Simulation
+        window.walkme_version = "2021.04.12";
+        
+        console.warn('TRAINER ALERT: Iframe is missing the snippet. ID Churn active on Lesson 1 button.');
     };
 </script>
 
