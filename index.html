@@ -15,20 +15,38 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Butter Masterclass | Final Lab</title>
+    <title>The Butter Masterclass | Live Training</title>
     <style>
         :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; --butter-dark: #b8950d; }
         body { font-family: 'Segoe UI', sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: auto; position: relative; }
         header { text-align: center; padding: 20px; background: var(--churn-gold); border-radius: 8px; margin-bottom: 20px; }
+        
         .main-layout { display: flex; gap: 20px; }
+        
+        /* SIDEBAR TABS */
         .sidebar { flex: 1; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; position: relative; }
         .tab-menu { display: flex; flex-direction: column; background: #eee; position: relative; }
         .tab-link { padding: 15px; border: none; background: none; text-align: left; cursor: pointer; border-bottom: 1px solid #ddd; font-weight: bold; height: 50px; width: 100%; box-sizing: border-box; }
         .tab-link.active { background: white; color: var(--butter-dark); border-left: 4px solid var(--churn-gold); }
-        #ui-layer-mask { position: absolute; top: 100px; left: 0; width: 100%; height: 50px; z-index: 99999; background: rgba(0, 0, 0, 0); pointer-events: all; }
+
+        /* THE INVISIBLE WALL (UI MASK) */
+        /* Positioned exactly over the Lesson 3 Tab button */
+        #ui-layer-mask {
+            position: absolute; 
+            top: 100px; 
+            left: 0; 
+            width: 100%; 
+            height: 50px; 
+            z-index: 99999; 
+            background: rgba(0, 0, 0, 0); /* 100% Transparent */
+            pointer-events: all; 
+        }
+
+        /* THE IFRAME CONTAINER */
         .iframe-container { flex: 2; border: 3px dashed #d4ac0d; border-radius: 8px; background: #fff; height: 500px; }
         iframe { width: 100%; height: 100%; border: none; }
+
         .status-bar { font-size: 11px; color: #888; margin-top: 20px; text-align: center; }
     </style>
 </head>
@@ -44,6 +62,7 @@
         <aside class="sidebar">
             <div class="tab-menu">
                 <div id="ui-layer-mask"></div>
+                
                 <button class="tab-link active" onclick="openTab(event, 'Lesson1')">Lesson 1: Basics</button>
                 <button class="tab-link" onclick="openTab(event, 'Lesson2')">Lesson 2: Salt Flow</button>
                 <button class="tab-link" onclick="openTab(event, 'Lesson3')">Lesson 3: Advanced</button>
@@ -51,16 +70,25 @@
         </aside>
 
         <section class="iframe-container">
-            <iframe id="lesson-frame" 
-                    sandbox="allow-scripts" 
-                    srcdoc="<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Lesson 1: Basics</h2><button id='verify-btn' style='background:#27ae60; color:white; padding:12px; cursor:pointer;'>Check Fat %</button></div></body></html>">
-            </iframe>
+            <iframe id="lesson-frame" name="lesson-frame" srcdoc="
+                <html>
+                <body style='font-family:sans-serif; text-align:center; padding:40px;'>
+                    <div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'>
+                        <h2>Lesson 1: Churning Butter</h2>
+                        <p>The fat solids must be separated. WalkMe cannot see this button.</p>
+                        <button id='verify-btn' style='background:#27ae60; color:white; padding:12px; border:none; cursor:pointer;'>Check Fat %</button>
+                    </div>
+                </body>
+                </html>
+            "></iframe>
         </section>
     </div>
-    <div class="status-bar">Butter-Env: v2.4.1-churn</div>
+
+    <div class="status-bar" id="id-log">System Status: Active</div>
 </div>
 
 <script>
+    // Iframe contents - None of these strings contain the WalkMe snippet
     const lessonContent = {
         'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Lesson 1: Basics</h2><button id='verify-btn' style='background:#27ae60; color:white; padding:12px; cursor:pointer;'>Check Fat %</button></div></body></html>`,
         'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:40px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>Lesson 2: Salting</h2><button id='salt-btn' style='background:#e67e22; color:white; padding:12px; cursor:pointer;'>Apply Brine</button></div></body></html>`,
@@ -68,13 +96,17 @@
     };
 
     function openTab(evt, tabName) {
+        // Tab UI logic
         var tablinks = document.getElementsByClassName('tab-link');
         for (var i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
         evt.currentTarget.className += ' active';
+
+        // Swap Iframe content
         document.getElementById('lesson-frame').srcdoc = lessonContent[tabName];
     }
 
     window.onload = function() {
+        // Simulated issue: Library version spoof
         window.walkme_version = "2021.04.12";
     };
 </script>
