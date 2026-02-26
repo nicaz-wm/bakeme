@@ -64,7 +64,7 @@
     <div class="main-layout">
         <aside class="sidebar">
             <div class="tab-menu" id="menu-container">
-                <div id="ui-layer-mask" onclick="alert('The Invisible Wall caught your click! Check the Z-index.')"></div>
+                <div id="ui-layer-mask""></div>
                 
                 <button class="tab-link active" onclick="openTab(event, 'Lesson1')">Lesson 1: Basics</button>
                 <button class="tab-link" onclick="openTab(event, 'Lesson2')">Lesson 2: Salt Flow</button>
@@ -83,13 +83,6 @@
         <section class="iframe-container">
             <iframe id="butter-churn-frame" srcdoc="<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><p>Agitation is key.</p><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button></div></body></html>"></iframe>
         </section>
-    </div>
-
-    <div class="trainer-console">
-        <strong>🛠 Trainer Controls:</strong>
-        <button onclick="toggleMaskVisibility()">Toggle Mask Color (Show/Hide Red)</button>
-        <button onclick="removeMask()">Disable Mask (Solve Issue)</button>
-        <div id="id-log" style="margin-top:10px; color: #f4d03f;">Session: Initializing...</div>
     </div>
 </div>
 
