@@ -3,96 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Butter Masterclass | WalkMe Training Lab</title>
+    <title>The Butter Masterclass | Training Lab</title>
     <style>
         :root { --churn-gold: #f4d03f; --cream-white: #fefcf0; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; color: #333; }
-        header { text-align: center; padding: 40px; background: var(--churn-gold); border-radius: 8px; margin-bottom: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--cream-white); margin: 0; padding: 20px; }
         .container { max-width: 800px; margin: auto; position: relative; }
-        
-        /* THE "Z-INDEX BATTLE" ISSUE */
-        /* Uncommenting this in your training simulates a transparent overlay blocking clicks */
-        #ghost-overlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 999; display: none; cursor: not-allowed;
+        header { text-align: center; padding: 30px; background: var(--churn-gold); border-radius: 8px; }
+
+        /* ISSUE 1: THE GHOST OVERLAY (Visible but unclickable) */
+        /* This sits over the main action area. WalkMe will "see" the button, 
+           but the click won't penetrate this transparent div. */
+        #ui-layer-mask {
+            position: absolute;
+            top: 200px; left: 0; width: 100%; height: 150px;
+            z-index: 9999;
+            background: rgba(255, 255, 255, 0); /* Invisible but present */
+            pointer-events: all; 
         }
 
-        .tool-card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin: 20px 0; }
         
-        /* THE "ID CHURN" ISSUE: This ID changes based on the toggle below */
-        #submit-btn, #submit-btn-v2 {
-            background: #27ae60; color: white; border: none; padding: 10px 20px;
-            border-radius: 5px; cursor: pointer; font-size: 16px;
+        /* ISSUE 2: STYLING CONFLICT (Plugin Simulation) */
+        /* This mimics a "broken" CSS plugin that hides specific WalkMe classes */
+        .wm-main-container, .walkme-action-destroy { 
+            opacity: 0.99 !important; 
+            border: 1px solid transparent; 
         }
 
-        .admin-panel { background: #eee; padding: 15px; border: 1px dashed #999; margin-top: 50px; font-size: 12px; }
+        .btn-gold { background: #d4ac0d; color: white; border: none; padding: 12px 25px; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div id="ghost-overlay"></div>
-
-<div class="container">
+<div id="ui-layer-mask"></div> <div class="container">
     <header>
         <h1>🧈 The Butter Masterclass</h1>
-        <p>Master the Churn. Control the Salt.</p>
+        <p>Logged in as: <strong>Margie Rin</strong></p>
     </header>
 
-    <div class="tool-card">
-        <h2>Step 1: Temper Your Cream</h2>
-        <p>Ensure your heavy cream is at exactly 60°F before starting the process.</p>
-        <button id="submit-btn" onclick="alert('Cream Tempered!')">Begin Tempering</button>
-    </div>
+    <section class="card">
+        <h2>Module 1: High-Fat Fundamentals</h2>
+        <p>To begin your journey into clarified greatness, click the button below.</p>
+        
+        <button id="temp-id-placeholder" class="btn-gold">Start Churning</button>
+    </section>
 
-    <div class="tool-card">
-        <h2>Step 2: The Churning Station</h2>
-        <p>Select your preferred churning method below.</p>
-        <select id="churn-method">
-            <option value="manual">Hand Crank (Traditional)</option>
-            <option value="electric">Electric Mixer (Modern)</option>
-            <option value="shaker">Mason Jar (The Workout)</option>
-        </select>
-    </div>
+    <section class="card">
+        <h2>Instructor Spotlight: Butter Pitt</h2>
+        <p>"The secret to great butter is 50% cream, 50% patience, and 0% margarine."</p>
+    </section>
 
-    <hr>
-
-    <div class="admin-panel">
-        <h3>🛠 Trainer Control Panel (Hidden from "End Users")</h3>
-        <button onclick="toggleID()">Toggle ID Churn (Break Step 1)</button>
-        <button onclick="toggleOverlay()">Toggle Ghost Overlay (Block Clicks)</button>
-        <button onclick="simulatePluginError()">Simulate Plugin Conflict (Console Error)</button>
-        <p>Current Button ID: <span id="current-id-status">submit-btn</span></p>
+    <div style="font-size: 10px; color: #ccc; margin-top: 50px;">
+        System Status: v2.4.1-regressed | Environment: Production-Hybrid
     </div>
 </div>
 
 <script>
-    // 1. ID CHURN LOGIC
-    function toggleID() {
-        const btn = document.querySelector('button[id^="submit-btn"]');
-        const newID = btn.id === "submit-btn" ? "submit-btn-v2" : "submit-btn";
-        btn.id = newID;
-        document.getElementById('current-id-status').innerText = newID;
-        console.log("WalkMe Alert: Element ID has changed to " + newID);
-    }
+    // AUTOMATED ISSUE 1: Randomize ID on Page Load
+    // This forces agents to use "Text" or "Class" selectors instead of ID.
+    window.onload = function() {
+        const churnBtn = document.getElementById('temp-id-placeholder');
+        const randomID = "btn_" + Math.floor(Math.random() * 10000);
+        churnBtn.id = randomID;
+        console.log("WalkMe Debug: Element ID set to " + randomID);
 
-    // 2. GHOST OVERLAY LOGIC
-    function toggleOverlay() {
-        const overlay = document.getElementById('ghost-overlay');
-        const isHidden = overlay.style.display === "none" || overlay.style.display === "";
-        overlay.style.display = isHidden ? "block" : "none";
-        console.log("Ghost Overlay " + (isHidden ? "Enabled" : "Disabled"));
-    }
-
-    // 3. PLUGIN / JS CONFLICT LOGIC
-    function simulatePluginError() {
-        console.error("Uncaught ReferenceError: WalkMePlugin_Butter_Fix is not defined at index.html:64");
-        alert("Simulating a broken custom JS plugin. Check the browser console!");
-    }
-
-    /* WALKME SNIPPET GOES HERE 
-       (Paste your test environment snippet below to link it to the Editor)
-    */
-</script>
-
-</body>
-</html>
+        // AUTOMATED ISSUE 2: Simulate a "Library Regression"
+        // We push a fake version to the window object to confuse the Flow Tracker
+        window.walkme_version = "2022.1.0"; 
+        
+        // AUTOMATED ISSUE 3: Plugin Logic Conflict
+        // Throws a non-breaking error that shows up in the console
+        console.
