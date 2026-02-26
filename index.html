@@ -87,12 +87,9 @@
                 <body style='font-family:sans-serif; text-align:center; padding:50px;'>
                     <div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'>
                         <h2>Churning Chamber</h2>
-                            <p>Think of the churning chamber as the ultimate VIP lounge for heavy cream—though the 'security' is a bit intense.
-
-It’s the central heart of a butter churn where the magic (and the workout) happens. Inside this chamber, cream is agitated, shaken, or paddled so vigorously that the fat molecules lose their cool, bump into each other, and decide to stick together.
-
-Essentially, it’s a tiny, high-energy dance floor where cream goes in as a liquid and comes out as the best thing to ever happen to a slice of toast.
-                            </p>
+                        <p>Think of the churning chamber as the ultimate VIP lounge for heavy cream—though the 'security' is a bit intense. 
+                           It’s the central heart of a butter churn where the magic (and the workout) happens.
+                        </p>
                         <button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button>
                     </div>
                 </body>
@@ -100,33 +97,46 @@ Essentially, it’s a tiny, high-energy dance floor where cream goes in as a liq
             "></iframe>
         </section>
     </div>
+    <div class="status-bar" id="id-log">Status: Initializing...</div>
 </div>
 
 <script>
+    // IFRAME CONTENT DICTIONARY
+    const frameContent = {
+        'Lesson1': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #f4d03f; padding:20px; border-radius:10px;'><h2>Churning Chamber</h2><p>The central heart of the churn. Aggitation is key.</p><button id='start-churn-btn' style='background:#27ae60; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Finish Lesson</button></div></body></html>`,
+        'Lesson2': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #3498db; padding:20px; border-radius:10px;'><h2>The Salting Station</h2><p>Welcome to Lesson 2. Here we precisely measure sodium levels to ensure peak flavor profile.</p><button id='salt-btn' style='background:#e67e22; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Distribute Salt</button></div></body></html>`,
+        'Lesson3': `<html><body style='font-family:sans-serif; text-align:center; padding:50px;'><div style='border:2px solid #9b59b6; padding:20px; border-radius:10px;'><h2>Clarification Lab</h2><p>Lesson 3: The final stage. High heat, low moisture.</p><button id='clarify-btn' style='background:#8e44ad; color:white; padding:15px; border:none; border-radius:5px; cursor:pointer;'>Purify Butter</button></div></body></html>`
+    };
+
     // TAB LOGIC
     function openTab(evt, tabName) {
         var i, tabcontent, tablinks;
         tabcontent = document.getElementsByClassName('tab-content');
-        for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = 'none'; tabcontent[i].classList.remove('active'); }
+        for (i = 0; i < tabcontent.length; i++) { 
+            tabcontent[i].style.display = 'none'; 
+            tabcontent[i].classList.remove('active'); 
+        }
         tablinks = document.getElementsByClassName('tab-link');
-        for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(' active', ''); }
+        for (i = 0; i < tablinks.length; i++) { 
+            tablinks[i].className = tablinks[i].className.replace(' active', ''); 
+        }
         document.getElementById(tabName).style.display = 'block';
         document.getElementById(tabName).classList.add('active');
         evt.currentTarget.className += ' active';
+
+        // UPDATE IFRAME CONTENT
+        document.getElementById('butter-churn-frame').srcdoc = frameContent[tabName];
     }
 
     // AUTOMATED ISSUES ON LOAD
     window.onload = function() {
-        // ISSUE: Shifting ID
         const vBtn = document.getElementById('verify-btn');
         const randomID = "check-id-" + Math.floor(Math.random() * 999);
         vBtn.id = randomID;
-        document.getElementById('id-log').innerText = randomID;
+        document.getElementById('id-log').innerText = "Session ID: " + randomID;
 
-        // ISSUE: Library Version Simulation
         window.walkme_version = "2021.04.12";
-        
-        console.warn('TRAINER ALERT: Iframe is missing the snippet. ID Churn active on Lesson 1 button.');
+        console.warn('TRAINER ALERT: Iframe swaps content on tab click but still lacks WalkMe snippet.');
     };
 </script>
 
